@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  client_rb:
+    audit_mode: :enabled
+    environment: _default
+
+driver:
+  name: vagrant
+  network:
+  - ["private_network", {ip: "192.168.56.35"}]
+  synced_folders:
+  - ['/Users/andrewdufour/chef-kits/chef', '/chef', 'disabled: false']
+  customize:
+    cpus: 2
+    memory: 512
+
+platforms:
+  - name: centos-6.5
+suites:
+  - name: default
+    run_list:
+      - recipe[audit-test::default]
+    attributes:
